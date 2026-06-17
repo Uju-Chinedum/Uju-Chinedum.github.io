@@ -495,7 +495,19 @@
   /* FOOTER */
   footer {
     text-align: center;
-    padding: 2rem;
+    padding: 2.5rem 2rem 2rem;
+  }
+
+  .footer-quote {
+    font-family: var(--display);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .footer-credit {
     font-family: var(--mono);
     font-size: 0.75rem;
     color: var(--text-tertiary);
@@ -739,7 +751,8 @@
 </section>
 
 <footer>
-  <p>Built with HTML & deployed on GitHub Pages · Nedum © 2026</p>
+  <p class="footer-quote">"There's Order in Chaos and Chaos in Order"</p>
+  <p class="footer-credit">Built with HTML & deployed on GitHub Pages · Nedum © 2026</p>
 </footer>
 
 <script>
