@@ -4,9 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nedum — Backend Engineer</title>
+<meta name="description" content="Backend engineer specialising in real-time systems, scalable APIs, and production-grade SaaS infrastructure. Building with NestJS, TypeScript, and PostgreSQL.">
+<meta name="theme-color" content="#0A0F1E">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nedum — Backend Engineer">
+<meta property="og:description" content="Backend engineer specialising in real-time systems, scalable APIs, and production-grade SaaS infrastructure. Building with NestJS, TypeScript, and PostgreSQL.">
+<meta property="og:url" content="https://nedum.dev/">
+<meta property="og:image" content="favicon-180.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nedum — Backend Engineer">
+<meta name="twitter:description" content="Backend engineer specialising in real-time systems, scalable APIs, and production-grade SaaS infrastructure.">
+<meta name="twitter:image" content="favicon-180.png">
+<meta name="twitter:site" content="@DevNedum">
+
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -332,13 +351,16 @@
   }
 
   .project-card:hover {
-    border-color: var(--border-hover);
     background: var(--bg-card-hover);
+  }
+
+  .project-card.clickable-card:hover {
+    border-color: var(--border-hover);
     transform: translateY(-3px);
     box-shadow: 0 12px 40px rgba(99,102,241,0.12);
   }
 
-  .project-card:hover::before { opacity: 1; }
+  .project-card.clickable-card:hover::before { opacity: 1; }
 
   .project-header {
     display: flex;
@@ -546,10 +568,27 @@
     .contact-grid { grid-template-columns: 1fr; }
   }
 
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .cursor { animation: none; opacity: 1; }
-    .project-card:hover { transform: none; }
+    .project-card.clickable-card:hover { transform: none; }
     .btn-primary:hover { transform: none; }
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 </style>
 </head>
@@ -592,7 +631,7 @@
 <div class="divider"></div>
 
 <!-- STACK -->
-<section id="stack">
+<section id="stack" class="reveal">
   <p class="section-label">Technical skills</p>
   <h2 class="section-title">What I work with</h2>
   <div class="stack-grid">
@@ -618,7 +657,7 @@
 <div class="divider"></div>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section id="projects" class="reveal">
   <p class="section-label">Work & projects</p>
   <h2 class="section-title">Things I've built</h2>
 
@@ -712,12 +751,19 @@
     </div>
 
   </div>
+
+  <p style="text-align: center; margin-top: 2.5rem;">
+    <a href="https://github.com/Uju-Chinedum" target="_blank" rel="noopener" class="btn btn-ghost">
+      View more on GitHub
+      <svg width="14" height="14" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg>
+    </a>
+  </p>
 </section>
 
 <div class="divider"></div>
 
 <!-- CONTACT -->
-<section id="contact">
+<section id="contact" class="reveal">
   <p class="section-label">Get in touch</p>
   <h2 class="section-title">Let's work together</h2>
   <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 480px; font-size: 0.95rem;">
@@ -814,6 +860,22 @@
   }
 
   setTimeout(tick, 600);
+
+  // Scroll reveal for sections
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add('visible'));
+  }
 </script>
 </body>
 </html>
